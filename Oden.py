@@ -96,15 +96,6 @@ def frecuencia(min,anole,texto):
                 matriz[i][j] = str(texto).count(anole[i])
     return matriz
 
-def burbuja(A):
-    for i in range(1,len(A)):
-        for j in range(0,len(A)-i):
-            if(A[j+1] < A[j]):
-                aux=A[j]
-                A[j]=A[j+1]
-                A[j+1]=aux
-    return A
-
 def ordemy(lista):
     for i in range(1,len(lista)):
         for j in range(0,len(lista)-i):
@@ -115,6 +106,10 @@ def ordemy(lista):
     return lista
 
 def printlist(texto,fu):
+    """
+    Retorna la matriz dependiendo la manera en que desea organizarla
+    (str,str)->(list)
+    """
     if fu == "apa":
         print("Forma organizada en orden de aparición")
         return frecuencia(cantpalle(texto), repe(cantpalle(texto)),texto.lower())
@@ -158,6 +153,10 @@ def main():
                 m = 1
             else:
                 print('Digite una opcion valida')
+    """
+    Fin funcion
+    """
 
+    
     print('Programa Finalizado con extito')
 main()
