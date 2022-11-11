@@ -95,11 +95,24 @@ def frecuencia(min,anole,texto):
             else:
                 matriz[i][j] = str(texto).count(anole[i])
     return matriz
+
+def burbuja(A):
+    for i in range(1,len(A)):
+        for j in range(0,len(A)-i):
+            if(A[j+1] < A[j]):
+                aux=A[j]
+                A[j]=A[j+1]
+                A[j+1]=aux
+    return A
+
 def ordemy(lista):
-    lista[0][1] = "pu"
+    for i in range(1,len(lista)):
+        for j in range(0,len(lista)-i):
+            if lista[j+1][1] > lista[j][1]:
+                aux = lista[j]
+                lista[j] = lista[j+1]
+                lista[j+1] = aux
     return lista
-
-
 
 def printlist(texto,fu):
     if fu == "apa":
@@ -111,14 +124,11 @@ def printlist(texto,fu):
         return sorted(fre , key=lambda x: x[0])
     elif fu == "may":
         print("Forma mayor a menor")
-        fre = frecuencia(cantpalle(texto), repe(cantpalle(texto)),texto.lower())
-        return ordemy(fre)#sorted(fre , key=lambda x: -x[1])
-
-
-
+        return ordemy(frecuencia(cantpalle(texto), repe(cantpalle(texto)),texto.lower()))
+        #return ordemy(fre)
 
 def main():
-    archivo = open("test.txt", encoding="utf-8")
+    archivo = open("texto1.txt", encoding="utf-8")
     texto = archivo.read()
     print("La cantidad de palabras es:",cantpal(texto))
     print("La cantidad de letras es:",cantetras(texto))
@@ -142,11 +152,9 @@ def main():
         while m == 0:
             fu = str(stdin.readline().strip())
             if fu == "apa" or fu == "org" or fu == "may":
-                print(printlist(texto,fu))
-                """
+                #print(printlist(texto,fu))
                 for i in printlist(texto,fu):
                     print(i)
-                """
                 m = 1
             else:
                 print('Digite una opcion valida')
