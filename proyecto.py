@@ -96,7 +96,20 @@ def frecuencia(min,anole,texto):
                 matriz[i][j] = str(texto).count(anole[i])
     return matriz
 
+def ordemy(lista):
+    for i in range(1,len(lista)):
+        for j in range(0,len(lista)-i):
+            if lista[j+1][1] > lista[j][1]:
+                aux = lista[j]
+                lista[j] = lista[j+1]
+                lista[j+1] = aux
+    return lista
+
 def printlist(texto,fu):
+    """
+    Retorna la matriz dependiendo la manera en que desea organizarla
+    (str,str)->(list)
+    """
     if fu == "apa":
         print("Forma organizada en orden de aparición")
         return frecuencia(cantpalle(texto), repe(cantpalle(texto)),texto.lower())
@@ -106,8 +119,7 @@ def printlist(texto,fu):
         return sorted(fre , key=lambda x: x[0])
     elif fu == "may":
         print("Forma mayor a menor")
-        fre = frecuencia(cantpalle(texto), repe(cantpalle(texto)),texto.lower())
-        return sorted(fre , key=lambda x: -x[1])
+        return ordemy(frecuencia(cantpalle(texto), repe(cantpalle(texto)),texto.lower()))
 
 
 
@@ -179,15 +191,15 @@ def main():
     if hu == "si":
         print('Digite la cantidad de palabras que mas se repiten')
         palco = int(stdin.readline().strip())
-        fre = frecuencia(cantpalle(texto), repe(cantpalle(texto)),texto.lower())
-        gtu = sorted(fre , key=lambda x: -x[1])
-
-        
-        
-
-
-
-    
+        gtu = printlist(texto,str("may"))
+        listasss = []
+        for i in range(palco):
+            listasss.append(gtu[i])
+        print('El top de las',str(palco),'palabras mas repetidas es:')
+        punt = 1
+        for i in listasss:
+            print("top",str(punt)+":",*i)
+            punt+=1
     """
     Fin imprimir palabra repiten
     """
