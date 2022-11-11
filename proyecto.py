@@ -29,6 +29,9 @@ def cantpal(texto):
     rest = rest.split(" ")
     return (len(rest))
 
+
+
+
 def cantetras(texto):
     """
     Cuenta la cantidad de letras
@@ -40,7 +43,18 @@ def cantetras(texto):
     texto = texto.replace(" ","")
     for i in texto:
         letras.append(i)
-    return (len(letras))
+    return letras
+    #return sorted(repe(letras))
+
+
+
+def oraciones(texto):
+    con = texto.split(".")
+    return len(con)-1
+
+def parrafos(texto):
+    con = texto.split(".\n")
+    return len(con)
 
 def contcara(texto):
     """
@@ -113,22 +127,25 @@ def printlist(texto,fu):
     if fu == "apa":
         print("Forma organizada en orden de aparición")
         return frecuencia(cantpalle(texto), repe(cantpalle(texto)),texto.lower())
+    
     elif fu == "org":
         print("Forma organizada alfabeticamente")
         fre = frecuencia(cantpalle(texto), repe(cantpalle(texto)),texto.lower())
         return sorted(fre , key=lambda x: x[0])
+    
     elif fu == "may":
-        print("Forma mayor a menor")
         return ordemy(frecuencia(cantpalle(texto), repe(cantpalle(texto)),texto.lower()))
-
-
 
 def main():
     archivo = open("texto1.txt", encoding="utf-8")
     texto = archivo.read()
-    print("La cantidad de palabras es:",cantpal(texto))
-    print("La cantidad de letras es:",cantetras(texto))
-    print("La cantidad de caracteres es:",contcara(texto))
+    print("La cantidad de palabras es: {}".format(cantpal(texto)))
+    print('La cantidad de parrafos es: {}'.format(parrafos(texto)))
+    print('la cantidad de oraciones es: {}'.format(oraciones(texto)))
+
+    #print('Cantidad de caracteres del texto: {}'.format(cantetras(texto.lower())))
+    print(cantetras(texto.lower()))
+
     print('Desea imprimir la lista de Frecuencia de las palabras (Si/No)')
     m,j = 0,0
     while j == 0:
@@ -137,9 +154,11 @@ def main():
             j = 1
         else:
             print('Digite una opcion valida')
+
     """
     Funcion imprimir lista de cantidad de palabras
     """
+
     if h == "si":
         print('Como desea imprimir la matriz, escriba:')
         print('"apa" para escribirlo en orden de aparición')
@@ -158,6 +177,9 @@ def main():
     """
 
 
+
+
+
     """
     Funcion imprimir caracteres Alfabeticos
     """
@@ -168,6 +190,9 @@ def main():
     """
 
 
+
+
+
     """
     Funcion saber si una palabra dada se encuentra en el texto
     """
@@ -176,6 +201,8 @@ def main():
     """
     Fin imprimir palabra
     """
+
+
 
     """
     Funcion palabras que mas se repiten
@@ -192,16 +219,18 @@ def main():
         print('Digite la cantidad de palabras que mas se repiten')
         palco = int(stdin.readline().strip())
         gtu = printlist(texto,str("may"))
-        listasss = []
+        listas_top = []
         for i in range(palco):
-            listasss.append(gtu[i])
-        print('El top de las',str(palco),'palabras mas repetidas es:')
+            listas_top.append(gtu[i])
+        print('El top de las {} palabras mas repetidas es:'.format(str(palco)))
         punt = 1
-        for i in listasss:
+        for i in listas_top:
             print("top",str(punt)+":",*i)
             punt+=1
     """
     Fin imprimir palabra repiten
     """
+
+
     print('Programa Finalizado con extito')
 main()
