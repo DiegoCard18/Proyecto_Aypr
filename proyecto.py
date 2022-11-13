@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+#Realizado por Diego Cardenas y Samuel Albarracin
+
 from sys import stdin
+import matplotlib.pyplot as plt
 def quitar_simbolos(texto):
     """
     Quita los simbolos del texto
@@ -34,9 +37,13 @@ def cantpal(texto):
     Cuenta la cantidad de palabras
     (str)->(str)
     """
-    rest = quitar_simbolos(texto)
+    rest = mejtexto(quitar_simbolos(texto))
+
+    """
     rest = rest.replace("\n"," ")
     rest = rest.replace("  "," ")
+    """
+
     rest = rest.split(" ")
     return (len(rest))
 
@@ -51,7 +58,7 @@ def cantetras(texto):
     texto = texto.replace(" ","")
     for i in texto:
         letras.append(i)
-    return letras
+    return len(letras)
     #return sorted(repe(letras))
 
 def oraciones(texto):
@@ -77,9 +84,12 @@ def contcara(texto):
     """
     caract = []
     texto = str(texto)
+    texto = mejtexto(quitar_simbolos(texto))
+    """
     texto = texto.replace("\n","")
     texto = texto.replace("  ","")
     texto = texto.replace(" ","")
+    """
     for i in texto:
         caract.append(i)
     return(len(caract))
@@ -166,14 +176,30 @@ def saberpa(texto,palba):
         resp.append("No")
     return resp
 
+def deletemen3(list):
+    new = []
+    for i in range(0,len(list)):
+        if len(list[i][0]) > 3:
+            new.append(list[i])
+    return new
+
+
+def sepprin():
+    print()
+
 def main():
     archivo = open("texto1.txt", encoding="utf-8")
     texto = str(archivo.read())
-    print("La cantidad de palabras es: {}".format(cantpal(texto)))
+    """
+    Funciones imprimir cantidad
+    """
+    print('La cantidad de palabras es: {}'.format(cantpal(texto)))
     print('La cantidad de parrafos es: {}'.format(parrafos(texto)))
     print('la cantidad de oraciones es: {}'.format(oraciones(texto)))
-    #print('Cantidad de caracteres del texto: {}'.format(cantetras(texto.lower())))
-    #print(cantetras(texto.lower()))
+    print('Cantidad de caracteres del texto: {}'.format(cantetras(texto.lower())))
+    """
+    Fin Funciones imprimir cantidad
+    """
     
     """
     Funcion imprimir lista de cantidad de palabras
@@ -185,11 +211,11 @@ def main():
         if h == "si" or h == "no":
             j = 1
         else:
-            print('Digite una opcion valida')
+            print('Digite una opción valida')
     if h == "si":
         print('Como desea imprimir la matriz, escriba:')
         print('"apa" para escribirlo en orden de aparición')
-        print('"org" para escribirlo alfabeticamente')
+        print('"org" para escribirlo alfabéticamente')
         print('"may" para escribirlo de mayor a menor')
         while m == 0:
             fu = str(stdin.readline().strip())
@@ -198,49 +224,43 @@ def main():
                     print(*i)
                 m = 1
             else:
-                print('Digite una opcion valida')
+                print('Digite una opción valida')
     """
     Fin imprimir lista
     """ 
-
-
-
     """
     Funcion imprimir caracteres Alfabeticos
     """
 
 
-    
+
 
 
     """
     Fin imprimir caracteres Alfabeticos
     """
-
-
-
-
     """     
     Funcion saber si una palabra dada se encuentra en el texto
     """
-
-
     print('Estiba una palabra para saber si se encuentra en el texto')
     palba = str(stdin.readline().strip())
     piuy = saberpa(mejtexto(quitar_simbolos(texto.lower())),str(palba))
+    carl = ""
+    if piuy[1] != 1:
+        carl = "veces"
+    else:
+        carl = "vez"
     if piuy[0] == "Si":
-        print('La palabra {} si se encunetra en el texto y aparece {} veces.'.format(palba,str(piuy[1])))
+        print('La palabra {} si se encuentra en el texto y aparece {} {}.'.format(palba, str(piuy[1]), str(carl)))
     else:
         print('La palabra {} no se encuentra en el texto'.format(palba))
-    
     """
     Fin imprimir palabra
     """
-
     """
     Funcion palabras que mas se repiten
     """
-    print('Desea saber las palabras que mas re repiten (Si/No)')
+    print('Desea saber las palabras que más re repiten (Si/No)')
     pal,pol = 0,0
     while pal == 0:
         hu = str(stdin.readline().strip()).lower()
@@ -255,15 +275,64 @@ def main():
         listas_top = []
         for i in range(palco):
             listas_top.append(gtu[i])
-        print('El top de las {} palabras mas repetidas son:'.format(str(palco)))
-        punt = 1
-        for i in listas_top:
-            print("top",str(punt)+":",*i)
-            punt+=1
+        if palco != 1:
+            print('El top de las {} palabras mas repetidas son:'.format(str(palco)))
+            punt = 1
+            for i in listas_top:
+                print("|top",str(punt)+"|:",*i)
+                punt+=1
+        else:
+            print('La palabra más repetida es {} con {} apariciones en el texto :'.format(listas_top[0][0],listas_top[0][1]))
     """
     Fin imprimir palabra repiten
     """
+    """
+    grafico
+    """
+    print('Desea imprimir el grafico digite (Si)/(No)')
+    pva,pvo = 0,0
+    while pva == 0:
+        gt = str(stdin.readline().strip()).lower()
+        if gt == "si" or gt == "no":
+            pva = 1
+        else:
+            print('Digite una opción valida')
+    if gt == "si":
+        fig, ax = plt.subplots()
+        li = []
+        val = []
+
+        tyu = deletemen3(printlist(texto,str("may")))
+        print('Digite la cantidad de valores que aparezcan en el grafico')
+        visco = int(stdin.readline().strip())
+        for i in range(0,visco):
+            li.append(tyu[i][0])
+            val.append(tyu[i][1])   
+
+        ax.bar(li, val)
+        ax.set_title('Las {} palabras que mas aparecieron fueron'.format(str(visco)))
+        ax.set_ylabel('Cantidad de aparicion de cada palabra')
+        plt.show()
 
 
-    print('Programa Finalizado con extito')
+    print('Programa Finalizado con éxito')
 main()
+
+def ko():
+    import matplotlib.pyplot as plt
+
+    fig, ax = plt.subplots()
+
+    fruits = ['apple', 'blueberry', 'cherry', 'orange']
+    counts = [40, 100, 30, 55]
+    bar_labels = ['red', 'blue', '_red', 'orange']
+    bar_colors = ['tab:red', 'tab:blue', 'tab:red', 'tab:orange']
+
+    ax.bar(fruits, counts, label=bar_labels, color=bar_colors)
+
+    ax.set_ylabel('fruit supply')
+    ax.set_title('Fruit supply by kind and color')
+    ax.legend(title='Fruit color')
+
+    plt.show()
+#ko()
