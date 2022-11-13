@@ -18,6 +18,17 @@ def quitar_simbolos(texto):
     texto = texto.replace("!","")
     return texto
 
+def mejtexto(texto):
+    """
+    Mejorar el texto quitando saltos de linea y espacios inecesarios
+    (str)->(str)
+    """
+    texto = str(texto)
+    texto = texto.replace("\n"," ")
+    texto = texto.replace("   "," ")
+    texto = texto.replace("  "," ")
+    return texto
+
 def cantpal(texto):
     """
     Cuenta la cantidad de palabras
@@ -28,9 +39,6 @@ def cantpal(texto):
     rest = rest.replace("  "," ")
     rest = rest.split(" ")
     return (len(rest))
-
-
-
 
 def cantetras(texto):
     """
@@ -46,13 +54,19 @@ def cantetras(texto):
     return letras
     #return sorted(repe(letras))
 
-
-
 def oraciones(texto):
+    """
+    Cuenta la cantidad de oraciones en el texto
+    (str)->(int)
+    """
     con = texto.split(".")
     return len(con)-1
 
 def parrafos(texto):
+    """
+    Cuenta la cantidad de parrafos en el texto
+    (str)->(int)
+    """
     con = texto.split(".\n")
     return len(con)
 
@@ -119,7 +133,7 @@ def ordemy(lista):
                 lista[j+1] = aux
     return lista
 
-def printlist(texto,fu):
+def printlist(  texto,fu):
     """
     Retorna la matriz dependiendo la manera en que desea organizarla
     (str,str)->(list)
@@ -136,16 +150,29 @@ def printlist(texto,fu):
     elif fu == "may":
         return ordemy(frecuencia(cantpalle(texto), repe(cantpalle(texto)),texto.lower()))
 
+
+def saberpa(texto,palba):
+    resp = []
+    if (" " + palba + " ") in (" " + texto + " "):
+        resp.append("Si")
+        cont = str(texto).count(palba)
+        resp.append(cont)
+    else:
+        resp.append("No")
+    return resp
+
 def main():
     archivo = open("texto1.txt", encoding="utf-8")
-    texto = archivo.read()
+    texto = str(archivo.read())
     print("La cantidad de palabras es: {}".format(cantpal(texto)))
     print('La cantidad de parrafos es: {}'.format(parrafos(texto)))
     print('la cantidad de oraciones es: {}'.format(oraciones(texto)))
-
     #print('Cantidad de caracteres del texto: {}'.format(cantetras(texto.lower())))
-    print(cantetras(texto.lower()))
-
+    #print(cantetras(texto.lower()))
+    
+    """
+    Funcion imprimir lista de cantidad de palabras
+    """
     print('Desea imprimir la lista de Frecuencia de las palabras (Si/No)')
     m,j = 0,0
     while j == 0:
@@ -154,11 +181,6 @@ def main():
             j = 1
         else:
             print('Digite una opcion valida')
-
-    """
-    Funcion imprimir lista de cantidad de palabras
-    """
-
     if h == "si":
         print('Como desea imprimir la matriz, escriba:')
         print('"apa" para escribirlo en orden de aparición')
@@ -174,9 +196,7 @@ def main():
                 print('Digite una opcion valida')
     """
     Fin imprimir lista
-    """
-
-
+    """ 
 
 
 
@@ -193,14 +213,27 @@ def main():
 
 
 
-    """
+
+    """     
     Funcion saber si una palabra dada se encuentra en el texto
     """
+
+
+    print('Estiba una palabra para saber si se encuentra en el texto')
+    palba = str(stdin.readline().strip())
+    piuy = saberpa(mejtexto(quitar_simbolos(texto.lower())),str(palba))
+    if piuy[0] == "Si":
+        print('La palabra {} si se encunetra en el texto y aparece {} veces.'.format(palba,str(piuy[1])))
+    else:
+        print('La palabra {} no se encuentra en el texto'.format(palba))
+
 
     
     """
     Fin imprimir palabra
     """
+
+
 
 
 
@@ -214,7 +247,7 @@ def main():
         if hu == "si" or hu == "no":
             pal = 1
         else:
-            print('Digite una opcion valida')
+            print('Digite una opción valida')
     if hu == "si":
         print('Digite la cantidad de palabras que mas se repiten')
         palco = int(stdin.readline().strip())
@@ -222,7 +255,7 @@ def main():
         listas_top = []
         for i in range(palco):
             listas_top.append(gtu[i])
-        print('El top de las {} palabras mas repetidas es:'.format(str(palco)))
+        print('El top de las {} palabras mas repetidas son:'.format(str(palco)))
         punt = 1
         for i in listas_top:
             print("top",str(punt)+":",*i)
