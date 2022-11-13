@@ -90,31 +90,28 @@ def cantpalle(texto):
     (str)->(str)
     """
     min = []
-    rest = str(quitar_simbolos(texto))
-    rest = rest.replace("\n"," ")
-    rest = rest.replace("  "," ")
-    rest = rest.split(" ")
+    rest = str(mejtexto(quitar_simbolos(texto))).split(" ")
     for i in rest:
-        i = str(i)
-        i = i.lower()
+        i = str(i).lower()
         min.append(i)
     return min
 
 def repe(min):
+    """
+    Elimina las palabras repetidas del texto
+    (list)->(list)
+    """
     anole = []
     for i in min:
         if i not in anole:
             anole.append(i)
     return anole
 
-def contar(texto, palabra):
-    cade = []
-    lista = cantpalle(texto)
-    for i in lista:
-        cade.append(lista.count(i))
-    print(cade)
-
 def frecuencia(min,anole,texto):
+    """
+    Crea una matriz con la secuencia de aparicion de las palabras y la frecuencia con la que aparecen
+    (str,list,str)->(list)
+    """
     matriz = [[0 for i in range(int(2))]for j in range(len(anole))]
     for i in range(len(anole)):
         for j in range(0,2):
@@ -125,6 +122,10 @@ def frecuencia(min,anole,texto):
     return matriz
 
 def ordemy(lista):
+    """
+    Entrega una lista y la ordena de mayor a menor
+    (list)->(list)
+    """
     for i in range(1,len(lista)):
         for j in range(0,len(lista)-i):
             if lista[j+1][1] > lista[j][1]:
@@ -152,6 +153,10 @@ def printlist(  texto,fu):
 
 
 def saberpa(texto,palba):
+    """
+    Entrega el texto y una palabra y quiere saber si aparece en el texto y cuantas veces aparece en este mismo
+    (str,str)->(list)
+    """
     resp = []
     if (" " + palba + " ") in (" " + texto + " "):
         resp.append("Si")
@@ -205,11 +210,12 @@ def main():
     """
 
 
+    
+
+
     """
     Fin imprimir caracteres Alfabeticos
     """
-
-
 
 
 
@@ -226,16 +232,10 @@ def main():
         print('La palabra {} si se encunetra en el texto y aparece {} veces.'.format(palba,str(piuy[1])))
     else:
         print('La palabra {} no se encuentra en el texto'.format(palba))
-
-
     
     """
     Fin imprimir palabra
     """
-
-
-
-
 
     """
     Funcion palabras que mas se repiten
