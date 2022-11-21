@@ -1,15 +1,11 @@
 #Realizado por Diego Cardenas y Samuel Albarracin
 from sys import stdin
-import matplotlib.pyplot as plt
 def quitar_simbolos(texto):
     """
     Quita los simbolos del texto
     (str)->(str)
     """
     texto = str(texto)
-
-    #texto = texto.strip(",:.)(;?¿!¡")
-
     texto = texto.replace(",","")
     texto = texto.replace(":","")
     texto = texto.replace(".","")
@@ -20,7 +16,6 @@ def quitar_simbolos(texto):
     texto = texto.replace("¿","")
     texto = texto.replace("¡","")
     texto = texto.replace("!","")
-
     return texto
 
 def mejtexto(texto):
@@ -78,13 +73,8 @@ def contcara(texto):
     (str)->(str)
     """
     caract = []
-    texto = str(texto)
+    #texto = str(texto)
     texto = mejtexto(quitar_simbolos(texto))
-    """
-    texto = texto.replace("\n","")
-    texto = texto.replace("  ","")
-    texto = texto.replace(" ","")
-    """
     for i in texto:
         caract.append(i)
     return(len(caract))
@@ -139,7 +129,7 @@ def ordemy(lista):
                 lista[j+1] = aux
     return lista
 
-def printlist(  texto,fu):
+def printlist(texto,fu):
     """
     Retorna la matriz dependiendo la manera en que desea organizarla
     (str,str)->(list)
@@ -168,13 +158,6 @@ def saberpa(texto,palba):
         resp.append("No")
     return resp
 
-def deletemen3(list):
-    new = []
-    for i in range(0,len(list)):
-        if len(list[i][0]) > 1:
-            new.append(list[i])
-    return new
-
 def main():
     archivo = open("texto1.txt", encoding="utf-8")
     texto = str(archivo.read())
@@ -183,10 +166,14 @@ def main():
     print('la cantidad de oraciones es: {}'.format(oraciones(texto)))
     print('Cantidad de caracteres del texto: {}'.format(cantetras(texto.lower())))
     print('Desea imprimir la lista de Frecuencia de las palabras (Si/No)')
+
+
+
     m,j = 0,0
     while j == 0:
         h = str(stdin.readline().strip()).lower()
-        if h == "si" or h == "no": j = 1
+        if h == "si" or h == "no": 
+            j = 1
         else: print('Digite una opción valida')
     if h == "si":
         print('Como desea imprimir la matriz, escriba:')
@@ -200,11 +187,20 @@ def main():
                     print(*i)
                 m = 1
             else: print('Digite una opción valida')
+
+
+
     print('Estiba una palabra para saber si se encuentra en el texto')
     palba = str(stdin.readline().strip())
     piuy = saberpa(mejtexto(quitar_simbolos(texto.lower())),str(palba))
-    if piuy[0] == "Si": print('La palabra {} si se encuentra en el texto y aparece {} vez.'.format(palba, str(piuy[1])))
-    else: print('La palabra {} no se encuentra en el texto'.format(palba))
+    
+    if piuy[0] == "Si": 
+        print('La palabra {} si se encuentra en el texto y aparece {} vez.'.format(palba, str(piuy[1])))
+    else: 
+        print('La palabra {} no se encuentra en el texto'.format(palba))
+
+
+
     print('Desea saber las palabras que más re repiten (Si/No)')
     pal = 0
     while pal == 0:
@@ -225,9 +221,6 @@ def main():
                 print("|top",str(punt)+"|:",*i)
                 punt+=1
         else: print('La palabra más repetida es {} con {} apariciones en el texto :'.format(listas_top[0][0],listas_top[0][1]))
-    """
-    grafico
-    """
     print('Desea imprimir el grafico digite (Si)/(No)')
     pva,pvo = 0,0
     while pva == 0:
