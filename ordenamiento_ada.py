@@ -6,7 +6,10 @@ def listaord(valor):
 
 
 lista = ['ha','mucho','tiempo','que','vivía','hidalgo','los','lanza','astillero','adarga','antigua','rocín','flaco']
+print(lista)
+print(sorted(lista))
 lista_yaord = map(listaord,lista)
 #print(list(lista_yaord))
 for i in lista_yaord:
     print(i)
+
